@@ -13,7 +13,13 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     alignItems: 'center',
-    height: 120,
-    margin: `${theme.spacing(2.5)}px 0 `,
+    marginBottom: `${theme.spacing(3)}px`,
+  },
+  title: {
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    width: 370,
+    textAlign: 'center',
   },
 }));

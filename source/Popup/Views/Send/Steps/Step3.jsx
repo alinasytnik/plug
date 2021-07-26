@@ -25,11 +25,11 @@ import ArrowUpRight from '@assets/icons/arrow-up-right.png';
 import clsx from 'clsx';
 import { useRouter, Plug } from '@components';
 
-import { ADDRESS_TYPES, DEFAULT_FEE } from '../hooks/constants';
+import { ADDRESS_TYPES, DEFAULT_FEE } from '@shared/constants/addresses';
 import useStyles from '../styles';
 
 const Step3 = ({
-  asset, amount, address, addressInfo, handleSendClick, error, transaction,
+  asset, amount, address, addressInfo, handleSendClick, error, transaction, trxComplete,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -42,6 +42,13 @@ const Step3 = ({
 
   const subtotal = amount * asset.price;
   const fee = +(asset?.price * DEFAULT_FEE).toFixed(5);
+
+  const shortAddressConfig = {
+    leftSize: 8,
+    rightSize: 3,
+    separator: '...',
+    replace: [],
+  };
 
   const openSendModal = () => {
     setOpenICPModal(false);
@@ -113,13 +120,13 @@ const Step3 = ({
                       <div className={classes.flex}>
                         <Typography variant="subtitle1" className={classes.to}>{t('send.to')}</Typography>
                         <div className={clsx(classes.badge, classes.principalBadge)}>
-                          {t('send.principalId')}
+                          {t('common.principalId')}
                         </div>
                       </div>
                       <div className={classes.titleContainer}>
                         <img src={ArrowImg} className={classes.arrow} />
                         <div className={clsx(classes.badge, classes.accountBadge)}>
-                          {t('send.accountId')}
+                          {t('common.accountId')}
                         </div>
                         <Info
                           onClick={() => setOpenICPModal(true)}
@@ -131,14 +138,19 @@ const Step3 = ({
                     </div>
                     <div className={classes.addressContainer}>
                       <div className={clsx(classes.flex, classes.margin)}>
-                        <img className={classes.image} src={AccountImg} />
-                        <Typography variant="subtitle1" className={classes.principalText}>{shortAddress(address)}</Typography>
+                        <Typography
+                          variant="subtitle1"
+                          className={classes.principalText}
+                        >
+                          {
+                            shortAddress(address, shortAddressConfig)
+                          }
+                        </Typography>
                       </div>
                       <div className={clsx(classes.flex, classes.margin)}>
-                        <img className={classes.image} src={AccountImg} />
                         <Typography variant="subtitle1" className={classes.accountText}>
                           {
-                            shortAddress(accountId)
+                            shortAddress(accountId, shortAddressConfig)
                           }
                         </Typography>
                         <img
@@ -155,7 +167,7 @@ const Step3 = ({
                     <div className={classes.flex}>
                       <Typography variant="subtitle1" className={classes.to}>{t('send.to')}</Typography>
                       <div className={clsx(classes.badge, classes.accountBadge)}>
-                        {t('send.accountId')}
+                        {t('common.accountId')}
                       </div>
                     </div>
                     <div className={classes.flex}>
@@ -195,15 +207,16 @@ const Step3 = ({
           component={(
             <div className={classes.sendingModal}>
               <Plug size="big" message={t(`send.plug${transaction ? 'LetsGo' : 'Chill'}`)} />
-              {transaction ? (
+              {trxComplete ? (
                 <>
                   <Typography className={classes.sendModalTitle}>{t('send.transactionSuccess')}</Typography>
                   <Button
                     variant="rainbow"
                     value={t('send.returnHome')}
                     onClick={() => navigator.navigate('home', 1)}
+                    fullWidth
                   />
-                  <LinkButton onClick={openICRocksTx} value={t('send.viewTxOnICRocks')} />
+                  {transaction && <LinkButton onClick={openICRocksTx} value={t('send.viewTxOnICRocks')} />}
                 </>
               ) : (
                 <>
@@ -262,6 +275,7 @@ Step3.propTypes = {
   handleSendClick: PropTypes.func.isRequired,
   error: PropTypes.bool,
   transaction: PropTypes.objectOf(PropTypes.string).isRequired,
+  trxComplete: PropTypes.bool.isRequired,
 };
 
 Step3.defaultProps = {

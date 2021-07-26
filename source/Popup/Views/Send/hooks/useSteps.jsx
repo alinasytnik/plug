@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { LinkButton } from '@ui';
 import { useRouter } from '@components/Router';
 import BackIcon from '@assets/icons/back.svg';
 import { setAssets, setTransactions } from '@redux/wallet';
 import { HANDLER_TYPES, E8S_PER_ICP, sendMessage } from '@background/Keyring';
+import { CURRENCIES } from '@shared/constants/currencies';
+import { validateAccountId, validatePrincipalId } from '@shared/utils/ids';
+import { ADDRESS_TYPES, DEFAULT_FEE } from '@shared/constants/addresses';
 import Step1 from '../Steps/Step1';
 import Step2a from '../Steps/Step2a';
 import Step2b from '../Steps/Step2b';
 import Step3 from '../Steps/Step3';
-import { CURRENCIES } from '../../../../shared/constants/currencies';
-import { validateAccountId, validatePrincipalId } from './utils';
-import { ADDRESS_TYPES, DEFAULT_FEE } from './constants';
 
 const useSteps = () => {
   const [step, setStep] = useState(0);
@@ -21,13 +20,14 @@ const useSteps = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const { assets } = useSelector((state) => state.wallet);
+  const { assets, principalId, accountId } = useSelector((state) => state.wallet);
   const { icpPrice } = useSelector((state) => state.icp);
   const [selectedAsset, setSelectedAsset] = useState(CURRENCIES.get('ICP'));
   const [amount, setAmount] = useState(null);
   const [transaction, setTransaction] = useState(null);
   const [address, setAddress] = useState(null);
   const [addressInfo, setAddressInfo] = useState({ isValid: null, type: null });
+  const [trxComplete, setTrxComplete] = useState(false);
 
   const [destination, setDestination] = useState('dank');
   const [sendError, setError] = useState(false);
@@ -44,14 +44,17 @@ const useSteps = () => {
       type: HANDLER_TYPES.SEND_ICP,
       params: { to: address, amount: e8s },
     }, (response) => {
-      const { error, assets: keyringAssets, transactions } = response || {};
+      const { error } = response || {};
       if (error) {
         setError(true);
       } else {
-        dispatch(setAssets(keyringAssets));
-        dispatch(setTransactions({ ...transactions, icpPrice }));
-        setTransaction(transactions?.transactions[transactions?.total - 1]);
+        setTrxComplete(true);
       }
+      sendMessage({ type: HANDLER_TYPES.GET_TRANSACTIONS, params: {} },
+        (transactions) => {
+          dispatch(setTransactions({ ...transactions, icpPrice }));
+          setTransaction(transactions?.transactions[transactions?.total - 1]);
+        });
     });
   };
 
@@ -63,7 +66,8 @@ const useSteps = () => {
 
   useEffect(() => {
     if (address !== null) {
-      let isValid = validatePrincipalId(address) || validateAccountId(address);
+      const isUserAddress = [principalId, accountId].includes(address);
+      let isValid = !isUserAddress && (validatePrincipalId(address) || validateAccountId(address));
       const type = validatePrincipalId(address) ? ADDRESS_TYPES.PRINCIPAL : ADDRESS_TYPES.ACCOUNT;
       // check for accountId if cycles selected
       if (type === ADDRESS_TYPES.ACCOUNT && selectedAsset.id === 'CYCLES') {
@@ -255,6 +259,7 @@ const useSteps = () => {
         handleSendClick={handleSendClick}
         error={sendError}
         transaction={transaction}
+        trxComplete={trxComplete}
       />,
       left: <LinkButton value={t('common.back')} onClick={() => handlePreviousStep()} startIcon={BackIcon} />,
       right: rightButton,

@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormItem } from '@ui';
+import extension from 'extensionizer';
 import useStyles from '../styles';
 import SIZES from '../constants';
 
-const Data = ({ data, requestCount }) => {
+const Data = ({ data, principalId }) => {
   const classes = useStyles();
 
-  window.resizeTo(SIZES.width, requestCount > 1
-    ? SIZES.dataHeightBig
-    : SIZES.dataHeightSmall);
+  extension.windows.update(
+    extension.windows.WINDOW_ID_CURRENT,
+    {
+      height: principalId
+        ? SIZES.dataHeightBig
+        : SIZES.dataHeightSmall,
+    },
+  );
 
   return (
     <div className={classes.innerContainer}>
@@ -36,5 +42,5 @@ Data.propTypes = {
       component: PropTypes.node.isRequired,
     }),
   ).isRequired,
-  requestCount: PropTypes.number.isRequired,
+  principalId: PropTypes.objectOf(PropTypes.object).isRequired,
 };

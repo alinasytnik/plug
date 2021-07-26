@@ -57,15 +57,20 @@
     "disconnect": "Disconnect",
     "add": "Add",
     "or": "or",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "fee": "Fee",
+    "memo": "Memo",
+    "null": "null",
+    "accountId": "Account ID",
+    "principalId": "Principal ID"
   },
   "apps": {
     "title": "Connected Apps",
     "subtitle": "Main IC Wallet is connected to these sites.",
     "disconnectTitle": "Disconnect from Site",
     "disconnectText": "Are you sure you want to disconnect from",
-    "emptyTitle": "You aren’t connected to any apps yet.",
-    "emptyText": "Explore a list of all apps that use Plug and find your first in",
+    "emptyTitle": "You have no apps connected.",
+    "emptyText": "When you connect to an app they will be displayed here, with the ability to remove them.",
     "emptyLink": "our docs.",
     "comingSoonTitle": "Coming soon!",
     "comingSoonSubtitle": "Plug will allow you to connect\nand log into IC Apps."
@@ -125,7 +130,8 @@
     "depositIcpSubtitle1": "Use when receiving from Plug accounts or other apps that support sending directly to Principal ID's.",
     "depositIcpTitle2": "From Exchange, DFX, or Account ID",
     "depositIcpSubtitle2": "Use when receiving from exchanges or other apps that only support sending to Account ID's.",
-    "scanQrCode": "Scan QR Code"
+    "scanQrCode": "Scan QR Code",
+    "sameAddressFromTo": "Oops! You're trying to send to your own ID"
   },
   "swap": {
     "title": "Swap",
@@ -158,15 +164,13 @@
     "canisterDetectedIcp1": "We detected the recipient ID you entered is a Canister. Please be aware that although you can send ICP to a canister, ",
     "canisterDetectedIcp2": "currently there is no way to send ICP out of a canister.",
     "canisterDetectedUnderstand": "I understand. Send ICP to canister anyways.",
-    "accountId": "Account ID",
-    "principalId": "Principal ID",
     "icpModalTitle": "Why are there two ID’s?",
     "icpModalText":"ICP can only be sent to Account IDs. So when you try sending ICP to a Principal ID, we just automatically fetch the Account ID associated with that Principal ID",
     "icpModalButton1": "Ok, I understand",
     "icpModalButton2": "Learn more about the two ID's",
     "icpAlertText": "You’re sending ICP to an Account ID",
     "icpAlertButton": "Learn more",
-    "transactionInProgress": "Transaction in Progress...",
+    "transactionInProgress": "Transaction in progress...",
     "transactionSuccess": "Transaction successful",
     "returnHome": "Return home",
     "viewTxOnICRocks": "View tx on ic.rocks",
@@ -174,18 +178,15 @@
     "plugChill": "Chill for a sec...",
     "plugLetsGo": "Let's go!! 😎"
   },
-  "cycleTransactions": {
+  "transfer": {
     "details": "Details",
     "data": "Data",
     "withdraw": "wants to withdraw from your wallet",
-    "amount": "Amount of Cycles",
-    "canisterId": "Canister ID",
-    "methodName": "Method Name",
-    "parameters": "Parameters",
+    "amount": "Amount of {token}",
     "decline": "Decline",
     "transactions": "transactions",
-    "notEnoughTitle": "Not enough Cycles",
-    "notEnoughText": "You don't have enough Cycles in your wallet to process this transaction. Please get more cycles to continue.",
+    "notEnoughTitle": "Not enough {token}",
+    "notEnoughText": "You don't have enough {token} in your wallet to process this transaction. Please get more {token} to continue.",
     "of": "of",
     "requests": "requests",
     "next": "Next →",
@@ -209,7 +210,7 @@
     "passwordWarning": "Don't forget your password, otherwise you'll need to reimport your wallet using your Secret Recovery Phrase.",
     "importSubtitle": "Please enter your 12 word Secret Recovery Phrase.",
     "importMessage": "Paste that sh*t",
-    "importLabel": "Secret Recovery Phrase or Private Key",
+    "importLabel": "Secret Recovery Phrase",
     "importButton": "Okay, I entered it.",
     "memeTitle": "You're good to go!",
     "memeSubtitle": "Peep your extensions and Plug should be there.",
@@ -233,7 +234,9 @@
     "deleteText": "Are you sure you want to delete",
     "deleteButton": "Delete",
     "newAddress": "New Address Detected!",
-    "addToContacts": "Add to Contacts"
+    "addToContacts": "Add to Contacts",
+    "errorId": "Incorrect ID format.",
+    "errorExists": "This contact already exists under \"{name}\"."
   },
   "addToken": {
     "title": "Add Token",

@@ -45,7 +45,9 @@ export const HANDLER_TYPES = {
   GET_STATE: 'get-keyring-state',
   GET_TRANSACTIONS: 'get-keyring-transactions',
   GET_ASSETS: 'get-keyring-assets',
+  GET_BALANCE: 'get-balance',
   SEND_ICP: 'send-icp',
+  EDIT_PRINCIPAL: 'edit-principal',
 };
 
 export const sendMessage = (args, callback) => {
@@ -68,6 +70,12 @@ export const getKeyringHandler = (type, keyring) => ({
     let unlocked = false;
     try {
       unlocked = await keyring.unlock(params?.password);
+
+      if (unlocked && params?.redirect) {
+        extension.storage.local.set({
+          router: 'home',
+        });
+      }
     } catch (e) {
       unlocked = false;
     }
@@ -88,14 +96,24 @@ export const getKeyringHandler = (type, keyring) => ({
     const e8s = await keyring.getBalance();
     return formatAssets(e8s, icpPrice);
   },
-  [HANDLER_TYPES.SEND_ICP]: async ({ to, amount }) => {
+  [HANDLER_TYPES.GET_BALANCE]: async (subaccount) => {
     try {
-      await keyring.sendICP(to, BigInt(amount));
-      const e8s = await keyring.getBalance();
-      const transactions = await keyring.getTransactions();
-      return { assets: formatAssets(e8s), transactions: recursiveParseBigint(transactions) };
-    } catch (e) {
-      return { error: true, assets: [], transactions: [] };
+      const e8s = await keyring.getBalance(subaccount);
+      return formatAssets(e8s);
+    } catch (error) {
+      return { error: error.message };
     }
   },
+  [HANDLER_TYPES.SEND_ICP]: async ({ to, amount }) => {
+    try {
+      const height = await keyring.sendICP(to, BigInt(amount));
+      return { height: parseInt(height.toString(), 10) };
+    } catch (error) {
+      return { error: error.message, height: null };
+    }
+  },
+  [HANDLER_TYPES.EDIT_PRINCIPAL]:
+    async ({ walletNumber, name, emoji }) => (
+      keyring.editPrincipal(walletNumber, { name, emoji })
+    ),
 }[type]);
