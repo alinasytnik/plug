@@ -12,11 +12,11 @@ const ActionsStep = ({ handleChangeBranch }) => {
   return (
     <>
       <Grid item xs={12} md={6}>
-        <ActionCard icon={ImportImg} title={t('welcome.importWallet')} subtitle={t('welcome.importText')} button={t('welcome.importWallet')} onClick={() => handleChangeBranch('import')} />
+        <ActionCard buttonProps={{ id: 'puppeteer-import-wallet' }} icon={ImportImg} title={t('welcome.importWallet')} subtitle={t('welcome.importText')} button={t('welcome.importWallet')} onClick={() => handleChangeBranch('import')} />
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <ActionCard icon={CreateImg} title={t('welcome.createWallet')} subtitle={t('welcome.createText')} button={t('welcome.createWallet')} onClick={() => handleChangeBranch('create')} />
+        <ActionCard buttonProps={{ id: 'puppeteer-create-wallet' }} icon={CreateImg} title={t('welcome.createWallet')} subtitle={t('welcome.createText')} button={t('welcome.createWallet')} onClick={() => handleChangeBranch('create')} />
       </Grid>
     </>
   );

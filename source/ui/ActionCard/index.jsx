@@ -5,7 +5,7 @@ import Button from '../Button';
 import useStyles from './styles';
 
 const ActionCard = ({
-  icon, title, subtitle, button, onClick,
+  icon, title, subtitle, button, onClick, buttonProps,
 }) => {
   const classes = useStyles();
 
@@ -14,7 +14,7 @@ const ActionCard = ({
       <img src={icon} className={classes.image} />
       <Typography variant="h3">{title}</Typography>
       <Typography variant="h5">{subtitle}</Typography>
-      <Button variant="rainbow" value={button} onClick={onClick} style={{ marginTop: 12 }} />
+      <Button variant="rainbow" value={button} onClick={onClick} style={{ marginTop: 12 }} {...buttonProps} />
     </div>
   );
 };
@@ -27,4 +27,10 @@ ActionCard.propTypes = {
   subtitle: PropTypes.string.isRequired,
   button: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  buttonProps: PropTypes.object,
+};
+
+ActionCard.defaultProps = {
+  buttonProps: {},
 };
