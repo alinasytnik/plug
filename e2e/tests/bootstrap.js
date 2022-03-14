@@ -4,6 +4,7 @@ async function bootstrap(options = {}) {
   const { devtools = false, slowMo = false } = options;
 
   const browser = await puppeteer.launch({
+    slowMo: 25,
     headless: false,
     devtools,
     args: [
