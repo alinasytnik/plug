@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+const EXTENSION_ID = 'loomjckegjmnkdgifjoblacbedcpbmii';
+
 async function bootstrap(options = {}) {
   const { devtools = false } = options;
 
@@ -26,7 +28,8 @@ async function bootstrap(options = {}) {
   // const [, , extensionId] = partialExtensionUrl.split('/');
 
   const optionsPage = await browser.newPage();
-  const optionsURL = 'chrome-extension://loomjckegjmnkdgifjoblacbedcpbmii/options.html';
+  // Paste ID here if changed
+  const optionsURL = `chrome-extension://${EXTENSION_ID}/options.html`;
   await optionsPage.goto(optionsURL, { waitUntil: 'load' });
 
   return {
@@ -36,4 +39,4 @@ async function bootstrap(options = {}) {
   };
 }
 
-module.exports = { bootstrap };
+module.exports = { bootstrap, EXTENSION_ID };

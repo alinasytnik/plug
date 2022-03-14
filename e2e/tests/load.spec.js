@@ -1,4 +1,4 @@
-const { bootstrap } = require('./bootstrap');
+const { bootstrap, EXTENSION_ID } = require('./bootstrap');
 
 describe('Login/Signup/Logout from extension', () => {
   let context;
@@ -9,10 +9,10 @@ describe('Login/Signup/Logout from extension', () => {
     context = _context;
   });
 
-  it('should create new wallet', async () => {
+  it('should import new wallet and unlock the extension', async () => {
     const phrase = 'song diagram rapid crazy bike ticket water sea world detail divide cup';
     const password = '111111111111';
-    const { optionsPage } = context;
+    const { optionsPage, browser } = context;
 
     await optionsPage.click('#puppeteer-import-wallet');
 
@@ -27,5 +27,13 @@ describe('Login/Signup/Logout from extension', () => {
     await optionsPage.keyboard.type(password);
 
     await optionsPage.click('#puppeteer-password-button');
+
+    const popupPage = await browser.newPage();
+    const popupURL = `chrome-extension://${EXTENSION_ID}/popup.html`;
+    await popupPage.goto(popupURL, { waitUntil: 'load' });
+
+    await popupPage.focus('.puppeteer-unlock-password');
+    await popupPage.keyboard.type(password);
+    await popupPage.click('#puppeteer-unlock-button');
   });
 });
