@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 async function bootstrap(options = {}) {
-  const { devtools = false, slowMo = false } = options;
+  const { devtools = false } = options;
 
   const browser = await puppeteer.launch({
     slowMo: 25,
@@ -12,7 +12,6 @@ async function bootstrap(options = {}) {
       '--load-extension=../extension/chrome',
       '--enable-automation',
     ],
-    ...(slowMo && { slowMo }),
   });
 
   // TODO: Find out how to get extension ID programmatically
