@@ -38,11 +38,11 @@ const Button = ({
     >
       <MuiButton
         onClick={onClick}
-        className={clsx(classes.root, classes[variant])}
         disabled={disabled || loading}
         fullWidth={fullWidth}
         {...VARIANTS[variant]}
         {...other}
+        className={clsx(classes.root, classes[variant], other.className)}
       >
         {
           !loading

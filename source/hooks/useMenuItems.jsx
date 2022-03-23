@@ -75,6 +75,7 @@ const useMenuItems = (toggleMenu) => {
       onClick: refreshWallet,
     },
     {
+      className: 'puppeteer-lock-btn',
       image: LockIcon,
       name: t('profile.lock'),
       alignLeft: true,

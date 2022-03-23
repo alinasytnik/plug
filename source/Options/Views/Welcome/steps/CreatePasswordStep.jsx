@@ -67,7 +67,7 @@ const CreatePasswordStep = ({ handleNextStep, handleSetMnemonic, mnemonic }) => 
           label={t('welcome.passwordLabel')}
           component={(
             <TextInput
-              id="puppeteer-password"
+              inputClassName="puppeteer-password"
               fullWidth
               value={password}
               onChange={handleChangePassword}
@@ -82,7 +82,7 @@ const CreatePasswordStep = ({ handleNextStep, handleSetMnemonic, mnemonic }) => 
           label={t('welcome.passwordConfirmLabel')}
           component={(
             <TextInput
-              id="puppeteer-password-confirm"
+              inputClassName="puppeteer-password-confirm"
               fullWidth
               value={confirmPassword}
               onChange={handleChangeConfirmPassword}
@@ -93,7 +93,7 @@ const CreatePasswordStep = ({ handleNextStep, handleSetMnemonic, mnemonic }) => 
       </Grid>
       <Grid item xs={12} className={classes.marginBottom}>
         <Button
-          id="puppeteer-password-button"
+          className="puppeteer-password-button"
           variant="rainbow"
           value={t('welcome.passwordButton')}
           onClick={handleCreateAccount}

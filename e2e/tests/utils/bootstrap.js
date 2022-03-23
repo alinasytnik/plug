@@ -6,7 +6,7 @@ async function bootstrap(options = {}) {
   const { devtools = false } = options;
 
   const browser = await puppeteer.launch({
-    slowMo: 25,
+    slowMo: options.slowMo,
     headless: false,
     devtools,
     args: [
@@ -27,15 +27,15 @@ async function bootstrap(options = {}) {
   // const partialExtensionUrl = extensionTarget._targetInfo.url || '';
   // const [, , extensionId] = partialExtensionUrl.split('/');
 
-  const optionsPage = await browser.newPage();
+  const page = await browser.newPage();
   // Paste ID here if changed
   const optionsURL = `chrome-extension://${EXTENSION_ID}/options.html`;
-  await optionsPage.goto(optionsURL, { waitUntil: 'load' });
+  await page.goto(optionsURL, { waitUntil: 'load' });
 
   return {
     browser,
     optionsURL,
-    optionsPage,
+    page,
   };
 }
 

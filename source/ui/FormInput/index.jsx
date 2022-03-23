@@ -21,6 +21,10 @@ const FormInput = forwardRef(({ id, label, ...props }, ref) => {
 
 export default FormInput;
 
+FormInput.defaultProps = {
+  inputClassName: '',
+};
+
 FormInput.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -28,4 +32,5 @@ FormInput.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.bool.isRequired,
+  inputClassName: PropTypes.string,
 };

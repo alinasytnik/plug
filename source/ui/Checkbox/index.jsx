@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import useStyles from './styles';
 
 const Checkbox = ({
-  checked, handleChange, label, ...other
+  checked, handleChange, label, checkBoxProps, ...other
 }) => {
   const classes = useStyles();
 
@@ -16,12 +16,13 @@ const Checkbox = ({
       className={classes.formLabel}
       control={(
         <MuiCheckbox
-          className={classes.root}
           checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
           icon={<span className={classes.icon} />}
           checked={checked}
           onChange={handleChange}
           color="primary"
+          {...checkBoxProps}
+          className={clsx(classes.root, other.className)}
         />
       )}
       label={<Typography variant="h6">{label}</Typography>}
@@ -36,4 +37,8 @@ Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  checkBoxProps: PropTypes.objectOf(PropTypes.any),
+};
+Checkbox.defaultProps = {
+  checkBoxProps: {},
 };

@@ -3,9 +3,10 @@ import { ListItem } from '@ui';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Tooltip from '@material-ui/core/Tooltip';
+import clsx from 'clsx';
 import useStyles from './styles';
 
-const SeedPhrase = ({ words }) => {
+const SeedPhrase = ({ words, ...other }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -40,10 +41,11 @@ const SeedPhrase = ({ words }) => {
       placement="top"
     >
       <div
-        className={classes.root}
-        onClick={() => handleClick()}
         onMouseOver={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
+        {...other}
+        className={clsx(classes.root, other.className)}
+        onClick={() => handleClick()}
       >
         {
           words.map((word, i) => (

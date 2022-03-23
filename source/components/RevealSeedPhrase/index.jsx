@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import WhiteKeyImage from '@assets/icons/white-key.svg';
+import clsx from 'clsx';
 import useStyles from './styles';
 
 const RevealSeedPhrase = ({ onClick, ...other }) => {
@@ -9,9 +10,9 @@ const RevealSeedPhrase = ({ onClick, ...other }) => {
   const classes = useStyles();
   return (
     <div
-      className={classes.root}
       onClick={onClick}
       {...other}
+      className={clsx(classes.root, other.className)}
     >
       <div className={classes.blur} />
       <div className={classes.center}>
