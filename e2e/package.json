@@ -1,0 +1,16 @@
+{
+  "name": "e2e",
+  "version": "0.0.1",
+  "description": "E2E for Plug Wallet extension",
+  "author": "alinasytnik",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "e2e": "jest --detectOpenHandles"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.0.0",
+    "jest": "^27.5.1",
+    "puppeteer": "^13.5.1"
+  }
+}

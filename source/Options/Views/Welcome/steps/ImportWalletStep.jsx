@@ -39,6 +39,7 @@ const ImportWalletStep = ({ handleNextStep, handleSetMnemonic }) => {
           label={t('welcome.importLabel')}
           component={(
             <TextInput
+              id="puppeteer-secret-recovery-phrase"
               fullWidth
               value={text}
               onChange={handleChangeText}
@@ -52,6 +53,7 @@ const ImportWalletStep = ({ handleNextStep, handleSetMnemonic }) => {
       </Grid>
       <Grid item xs={12}>
         <Button
+          id="puppeteer-import-wallet-confirm"
           variant="rainbow"
           value={t('welcome.importButton')}
           onClick={handleImportMnemonic}

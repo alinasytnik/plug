@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import useStyles from './styles';
 
 const TextInput = forwardRef(({
-  value, type, onChange, startIcon, error, disabled, className, ...other
+  value, type, onChange, startIcon, error, disabled, className, inputClassName, ...other
 }, ref) => {
   const classes = useStyles();
 
@@ -19,6 +19,7 @@ const TextInput = forwardRef(({
           !disabled && classes.hover,
           (isFocus && !error) && classes.focus,
           error && classes.error, className),
+        input: inputClassName,
       }}
       value={value}
       type={type}
@@ -43,6 +44,7 @@ TextInput.defaultProps = {
   startIcon: null,
   disabled: false,
   className: '',
+  inputClassName: '',
 };
 
 TextInput.propTypes = {
@@ -53,4 +55,5 @@ TextInput.propTypes = {
   startIcon: PropTypes.node,
   error: PropTypes.bool,
   disabled: PropTypes.bool,
+  inputClassName: PropTypes.string,
 };

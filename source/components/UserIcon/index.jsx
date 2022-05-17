@@ -16,8 +16,8 @@ const UserIcon = ({
 
   return (
     <div
-      className={clsx(classes.fancyCircle, classes[size])}
       {...other}
+      className={clsx(classes.fancyCircle, classes[size], other.className)}
     >
       {
         edit

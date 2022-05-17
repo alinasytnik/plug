@@ -23,6 +23,7 @@ const SeedPhraseStep = ({ handleNextStep, mnemonic }) => {
             && (
               <>
                 <RevealSeedPhrase
+                  className="puppeteer-reveal-seed-phrase"
                   onClick={() => setReveal(true)}
                   style={{
                     position: 'absolute',
@@ -35,13 +36,14 @@ const SeedPhraseStep = ({ handleNextStep, mnemonic }) => {
               </>
             )
           }
-          <SeedPhrase words={mnemonic.split(' ')} />
+          <SeedPhrase words={mnemonic.split(' ')} className="puppeteer-seed-phrase" />
         </Grid>
         <Grid item xs={12}>
-          <Checkbox style={{ margin: 0 }} checked={checked} handleChange={handleChangeCheckbox} label={t('welcome.seedCheckbox')} />
+          <Checkbox style={{ margin: 0 }} checked={checked} handleChange={handleChangeCheckbox} label={t('welcome.seedCheckbox')} className="puppeteer-seed-phrase-checkbox" />
         </Grid>
         <Grid item xs={12}>
           <Button
+            className="puppeteer-seed-phrase-continue-btn"
             variant="rainbow"
             value={t('common.continue')}
             onClick={handleNextStep}

@@ -75,10 +75,12 @@ const Login = ({ redirect }) => {
           onChange={handleChangePassword}
           type="password"
           id="password"
+          inputClassName="puppeteer-unlock-password"
           error={error}
           autoFocus
         />
         <Button
+          id="puppeteer-unlock-button"
           value={t('login.unlock')}
           variant="rainbow"
           fullWidth
@@ -90,6 +92,7 @@ const Login = ({ redirect }) => {
       <div className={clsx(classes.flex, classes.actionContainer)}>
         <Typography variant="subtitle1">{t('login.restore')}</Typography>
         <LinkButton
+          className="puppeteer-login-import-wallet-button"
           style={{ paddingTop: 6 }}
           value={t('login.import')}
           onClick={() => extension.tabs.create({ url: 'options.html' })}

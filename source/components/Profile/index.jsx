@@ -135,7 +135,7 @@ const Profile = ({ disableProfile }) => {
       >
         <Button
           onClick={handleToggle}
-          className={classes.button}
+          className={clsx(classes.button, 'puppeteer-header-icon-btn')}
           classes={{
             label: classes.label,
           }}
@@ -235,6 +235,7 @@ const Profile = ({ disableProfile }) => {
                       image={item.image}
                       alignLeft={item.alignLeft}
                       onClick={() => item.onClick()}
+                      className={item.className}
                     />
                   ))
                 }
